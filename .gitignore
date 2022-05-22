@@ -1,4 +1,6 @@
 /target
+Cargo.lock
 
 #MAC Specific directories.
 .DS_Store
+
