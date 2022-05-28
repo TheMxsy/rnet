@@ -4,6 +4,12 @@ use hyper::{Body, Request, Response, Server, Method, StatusCode, };
 use hyper::service::{make_service_fn, service_fn};
 use futures::TryStreamExt as _;
 
+async fn shutdown_signal() {
+    // Wait for the CTRL+C signal
+    tokio::signal::ctrl_c()
+        .await
+        .expect("failed to install CTRL+C signal handler");
+}
 
 async fn echo(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
     let mut response = Response::new(Body::empty());
@@ -64,9 +70,10 @@ async fn main() {
     });
 
     let server = Server::bind(&addr).serve(make_svc);
-
+    // And now add a graceful shutdown signal...
+    let graceful = server.with_graceful_shutdown(shutdown_signal());
     // Run this server for... forever!
-    if let Err(e) = server.await {
+    if let Err(e) = graceful.await {
         eprintln!("server error: {}", e);
     }
 }
