@@ -1,6 +1,5 @@
 # rnet
-Progressive net application development to discover best practices in Rust-lang
-ecosystem. 
+Sample webapp to discover rust.
 
 On mac systems:
 shell: 
