@@ -1,7 +1,7 @@
 # rnet
-Sample webapp to discover rust.
+Discovering Rust
 
-On mac systems:
+Mac systems:
 shell: 
 >rustup target add x86_64-unknown-linux-musl
 >brew install FiloSottile/musl-cross/musl-cross  
